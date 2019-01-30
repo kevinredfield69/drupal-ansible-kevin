@@ -1,4 +1,4 @@
 [drupal]
 
-equipo1 ansible_ssh_host=10.0.100.2 ansible_ssh_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/equipo1/virtualbox/private_key
-equipo2 ansible_ssh_host=10.0.100.3 ansible_ssh_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/equipo2/virtualbox/private_key
+nodo1 ansible_ssh_host=10.0.100.2 ansible_ssh_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/nodo1/virtualbox/private_key
+nodo2 ansible_ssh_host=10.0.100.3 ansible_ssh_user=vagrant ansible_ssh_private_key_file=.vagrant/machines/nodo2/virtualbox/private_key

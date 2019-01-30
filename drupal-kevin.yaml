@@ -1,15 +1,5 @@
 ---
-- hosts: equipo1
-  become: yes
-  name: Instalar y Configurar Apache2
-  tasks:
-  - name: Actualizar lista de paquetes
-    apt: update_cache=yes
-
-  - name: Comprobar que Apache2 está instalado correctamente
-    apt: name=apache2 state=latest
-
-- hosts: equipo2
+- hosts: nodo1
   become: yes
   name: Instalar y Configurar PostgreSQL y Bind9
   tasks:
@@ -20,3 +10,14 @@
     apt: name=postgresql state=latest
     apt: name=postgresql-client state=latest
     apt: name=bind9 state=latest
+
+- hosts: nodo2
+  become: yes
+  name: Instalar y Configurar Apache2
+  tasks:
+  - name: Actualizar lista de paquetes
+    apt: update_cache=yes
+
+  - name: Comprobar que Apache2 está instalado correctamente
+    apt: name=apache2 state=latest
+
