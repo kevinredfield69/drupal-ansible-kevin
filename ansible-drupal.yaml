@@ -22,6 +22,9 @@
   become: yes
   name: Instalar y Configurar Apache2
   tasks:
+  - name: Variables 2
+    include_vars:
+      file: vars
   - name: Actualizar lista de paquetes
     apt: update_cache=yes
   - name: Comprobar que Apache2 está instalado correctamente
@@ -41,4 +44,15 @@
       remote_src: yes
       owner: www-data
       group: www-data 
-    
+  - name: Configurar virtualhost del sitio web de drupal
+    template:
+      src: 000-default-conf.j2
+      dest: /etc/apache2/sites-available/000-default.conf    
+    notify: Reiniciar servicio web Apache   
+
+  handlers:
+  - name: Reiniciar servicio web Apache
+    service: 
+      name: apache2
+      state: restarted
+
