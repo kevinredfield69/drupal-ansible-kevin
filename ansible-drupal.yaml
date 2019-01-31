@@ -3,20 +3,26 @@
   become: yes
   name: Instalar y Configurar PostgreSQL y Bind9
   tasks:
-  - name: Actualizar lista de paquetes
-    apt: update_cache=yes
-  - name: Comprobar que PostgreSQL está instalado correctamente
-    apt: name=postgresql state=latest
-    apt: name=postgresql-client state=latest
-  - name: Comprobar que Bind9 está instalado correctamente    
-    apt: name=bind9 state=latest
-  - name: Variables 
+  - name: Variables
     include_vars:
       file: vars
+  - name: Actualizar lista de paquetes
+    apt: update_cache=yes
+  - name: Comprobar que Bind9 está instalado correctamente    
+    apt: name=bind9 state=latest
   - name: Configuración del fichero named.conf.local
     template:
       src: named-conf-local.j2
       dest: /etc/bind/named.conf.local
+  - name: Comprobar que PostgreSQL está instalado correctamente
+    apt: name=postgresql state=latest
+    apt: name=postgresql-client state=latest
+#  - name: Creación de base de datos en PostgreSQL
+#    shell:
+#  - name: Creación de usuario en la base de datos de PostgreSQL
+#    shell:
+#  - name: Dar privilegios al usuario creado hacia la base de datos creada en PostgreSQL
+#    shell:
 
 - hosts: nodo2
   become: yes
@@ -55,4 +61,11 @@
     service: 
       name: apache2
       state: restarted
-
+#  - name: Reiniciar SGBD PostgreSQL
+#    sercive:
+#      name: postgresql
+#      state: restarted
+#  - name: Reiniciar servicio dns Bind9
+#    service:
+#      name: bind9
+#      state: restarted
