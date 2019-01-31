@@ -5,11 +5,18 @@
   tasks:
   - name: Actualizar lista de paquetes
     apt: update_cache=yes
-  
   - name: Comprobar que PostgreSQL está instalado correctamente
     apt: name=postgresql state=latest
     apt: name=postgresql-client state=latest
+  - name: Comprobar que Bind9 está instalado correctamente    
     apt: name=bind9 state=latest
+  - name: Variables 
+    include_vars:
+      file: vars
+  - name: Configuración del fichero named.conf.local
+    template:
+      src: named-conf-local.j2
+      dest: /etc/bind/named.conf.local
 
 - hosts: nodo2
   become: yes
@@ -17,7 +24,21 @@
   tasks:
   - name: Actualizar lista de paquetes
     apt: update_cache=yes
-
   - name: Comprobar que Apache2 está instalado correctamente
     apt: name=apache2 state=latest
-
+  - name: Comprobar que el módulo PHP7.0-FPM está instalado correctamente
+    apt: name=php7.0-fpm state=latest
+  - name: Instalar unzip en el equipo Servidor
+    apt: name=unzip state=latest
+  - name: Descargar drupal en el equipo Servidor
+    get_url:
+      url: https://ftp.drupal.org/files/projects/drupal-8.6.7.zip
+      dest: /home/vagrant/drupal-8.6.7.zip
+  - name: Descomprimir CMS drupal
+    unarchive:
+      src: /home/vagrant/drupal-8.6.7.zip
+      dest: /var/www
+      remote_src: yes
+      owner: www-data
+      group: www-data 
+    

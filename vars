@@ -1,0 +1,5 @@
+ip_nodo1: "10.0.100.2" #Dirección IP del nodo1
+ip_nodo2: "10.0.100.3" #Dirección IP del nodo2
+nodo2: "apachefpm-drupal" #Nombre del equipo nodo2
+#server_name: "kevindrupal" #Nombre de la página web
+zone: example.com #Zona del servidor DNS
