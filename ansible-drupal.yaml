@@ -15,14 +15,20 @@
       src: named-conf-local.j2
       dest: /etc/bind/named.conf.local
   - name: Comprobar que PostgreSQL está instalado correctamente
-    apt: name=postgresql state=latest
-    apt: name=postgresql-client state=latest
-#  - name: Creación de base de datos en PostgreSQL
-#    shell:
-#  - name: Creación de usuario en la base de datos de PostgreSQL
-#    shell:
-#  - name: Dar privilegios al usuario creado hacia la base de datos creada en PostgreSQL
-#    shell:
+    apt: name={{ item }} update_cache=true state=installed
+    with_items:
+     - postgresql
+     - postgresql-contrib
+     - libpq-dev
+     - python-psycopg2
+     - postgresql-client
+    tags: packages
+  - name: Creación de base de datos en PostgreSQL
+    shell:
+  - name: Creación de usuario en la base de datos de PostgreSQL
+    shell:
+  - name: Dar privilegios al usuario creado hacia la base de datos creada en PostgreSQL
+    shell:
 
 - hosts: nodo2
   become: yes
@@ -37,6 +43,22 @@
     apt: name=apache2 state=latest
   - name: Comprobar que el módulo PHP7.0-FPM está instalado correctamente
     apt: name=php7.0-fpm state=latest
+    apt:
+      name: "{{ item }}"
+    with_items:
+     - php7.0
+     - php7.0-mysql
+     - php7.0-common
+     - php7.0-readline
+     - php7.0-fpm
+     - php7.0-cli
+     - php7.0-gd
+     - php7.0-mcrypt
+     - php7.0-curl
+     - php7.0-mbstring
+     - php7.0-opcache
+     - php7.0-json
+    tags: packages
   - name: Instalar unzip en el equipo Servidor
     apt: name=unzip state=latest
   - name: Descargar drupal en el equipo Servidor
@@ -55,17 +77,19 @@
       src: 000-default-conf.j2
       dest: /etc/apache2/sites-available/000-default.conf    
     notify: Reiniciar servicio web Apache   
-
   handlers:
   - name: Reiniciar servicio web Apache
     service: 
       name: apache2
       state: restarted
+      become: yes
 #  - name: Reiniciar SGBD PostgreSQL
 #    sercive:
 #      name: postgresql
 #      state: restarted
+#      become: yes
 #  - name: Reiniciar servicio dns Bind9
 #    service:
 #      name: bind9
 #      state: restarted
+#      become: yes
