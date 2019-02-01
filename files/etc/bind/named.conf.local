@@ -6,8 +6,14 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
-zone "{{ zone }}"
+zone "db.example.com"
 {
         type master;
-        file "/var/cache/bind/db.{{ zone }}";
+        file "/var/cache/bind/db.example.com";
 };
+
+zone "db.10.0.100"
+{
+	type master;
+	file "/var/cache/bind/db.10.0.100";
+}

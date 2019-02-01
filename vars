@@ -1,5 +1,6 @@
 #ip_nodo1: "10.0.100.2" #Dirección IP del nodo1
 #ip_nodo2: "10.0.100.3" #Dirección IP del nodo2
 #nodo2: "apachefpm-drupal" #Nombre del equipo nodo2
-server_name: "kevindrupal" #Nombre de la página web
-zone: example.com #Zona del servidor DNS
+db_name: "drupaldb" #Nombre de la base de datos PostgreSQL
+db_user: "userdrupal" #Nombre de usuario a crear en PostgreSQL
+db_password: "userdrupal" #Contraseña del usuario a crear en PostgreSQL
