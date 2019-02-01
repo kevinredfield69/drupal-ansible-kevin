@@ -55,6 +55,8 @@
      - php7.0-common
      - php7.0-readline
      - php7.0-fpm
+     - php7.0-pgsql
+     - php7.0-xml
      - php7.0-cli
      - php7.0-gd
      - php7.0-mcrypt
@@ -75,7 +77,8 @@
       dest: /var/www
       remote_src: yes
       owner: www-data
-      group: www-data 
+      group: www-data
+      mode: 0644 
   - name: Configurar virtualhost del sitio web de drupal
     template:
       src: 000-default-conf.j2
