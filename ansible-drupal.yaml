@@ -14,6 +14,11 @@
     template:
       src: named-conf-local.j2
       dest: /etc/bind/named.conf.local
+  - name: Configuración del fichero /var/cache/bind/db.example.com
+    template:
+      src: var-cache-bind.j2
+      dest: /var/cache/bind/db.expample.com
+    notify: Reiniciar servicio dns Bind9
   - name: Comprobar que PostgreSQL está instalado correctamente
     apt: name={{ item }} update_cache=true state=installed
     with_items:
@@ -47,7 +52,6 @@
       name: "{{ item }}"
     with_items:
      - php7.0
-     - php7.0-mysql
      - php7.0-common
      - php7.0-readline
      - php7.0-fpm
