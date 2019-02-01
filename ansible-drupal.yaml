@@ -23,12 +23,12 @@
      - python-psycopg2
      - postgresql-client
     tags: packages
-  - name: Creación de base de datos en PostgreSQL
-    shell:
-  - name: Creación de usuario en la base de datos de PostgreSQL
-    shell:
-  - name: Dar privilegios al usuario creado hacia la base de datos creada en PostgreSQL
-    shell:
+#  - name: Creación de base de datos en PostgreSQL
+#    shell:
+#  - name: Creación de usuario en la base de datos de PostgreSQL
+#    shell:
+#  - name: Dar privilegios al usuario creado hacia la base de datos creada en PostgreSQL
+#    shell:
 
 - hosts: nodo2
   become: yes
