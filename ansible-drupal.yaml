@@ -80,11 +80,17 @@
     template:
       src: 000-default-conf.j2
       dest: /etc/apache2/sites-available/000-default.conf    
-    notify: Reiniciar servicio web Apache   
+    notify: Reiniciar servicio web Apache
+    notify: Reiniciar módulo servidor web Apache php7.0-fpm   
   handlers:
   - name: Reiniciar servicio web Apache
     service: 
       name: apache2
+      state: restarted
+      become: yes
+  - name: Reiniciar módulo servidor web Apache php7.0-fpm
+    service:
+      name: php7.0-fpm
       state: restarted
       become: yes
 #  - name: Reiniciar SGBD PostgreSQL
