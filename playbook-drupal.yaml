@@ -9,21 +9,21 @@
     apt: name=bind9 state=latest
   - name: Configuración del fichero named.conf.local
     copy: >
-      src=files/etc/bind/named.conf.local 
+      src=files/bind9/etc/bind/named.conf.local 
       dest=/etc/bind/named.conf.local
       owner=bind
       group=bind
       mode=644
   - name: Configuración del fichero /var/cache/bind/db.example.com
     copy: >
-      src=files/var/cache/bind/db.example.com
+      src=files/bind9/var/cache/bind/db.example.com
       dest=/var/cache/bind/db.example.com
       owner=bind
       group=bind
       mode=644
   - name: Configuración del fichero /var/cache/bind/db.10.0.100
     copy: >
-      src=files/var/cache/bind/db.10.0.100
+      src=files/bind9/var/cache/bind/db.10.0.100
       dest=/var/cache/bind/db.10.0.100 
       owner=bind
       group=bind
@@ -101,7 +101,7 @@
       group: www-data
   - name: Configurar virtualhost del sitio web de drupal
     copy: >
-      src=files/etc/apache2/sites-available/drupal.conf
+      src=files/apache2/etc/apache2/sites-available/drupal.conf
       dest=/etc/apache2/sites-available/drupal.conf
       owner=www-data
       group=www-data
