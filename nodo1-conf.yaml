@@ -1,11 +1,11 @@
 ---
 - hosts: nodo1
   become: yes
-  name: Instalar y Configurar PostgreSQL y Bind9
+  name: Instalación y Configuración Bind9 y PostgreSQL
   tasks:
   - name: Actualizar lista de paquetes
     apt: update_cache=yes
-  - name: Comprobar que Bind9 está instalado correctamente    
+  - name: Instalar servidor DNS Bind9    
     apt: name=bind9 state=latest
   - name: Copiar fichero de configuración named.conf.local
     copy: >
@@ -30,7 +30,7 @@
       group=bind
       mode=644
     notify: Reiniciar servicio dns Bind9
-  - name: Comprobar que PostgreSQL está instalado correctamente
+  - name: Instalar Sistema Gestor de Bases de Datos PostgreSQL
     apt: name={{ item }} update_cache=true state=installed
     with_items:
      - postgresql
