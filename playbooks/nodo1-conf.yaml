@@ -53,8 +53,8 @@
       ansible_ssh_pipelining: true
     postgresql_user:
       db: drupal
-      name: drupaluser
-      password: drupaluser
+      name: drupal
+      password: drupal
       priv: "ALL"
       expires: infinity
     notify:
