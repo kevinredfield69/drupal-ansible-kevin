@@ -1,0 +1,73 @@
+---
+- hosts: nodo1
+  become: yes
+  name: Instalar y Configurar PostgreSQL y Bind9
+  tasks:
+  - name: Actualizar lista de paquetes
+    apt: update_cache=yes
+  - name: Comprobar que Bind9 está instalado correctamente    
+    apt: name=bind9 state=latest
+  - name: Copiar fichero de configuración named.conf.local
+    copy: >
+      src=files/bind9/etc/bind/named.conf.local 
+      dest=/etc/bind/named.conf.local
+  - name: Copiar fichero de configuracion /etc/bind/zones.rfc1918
+    copy: >
+      src=files/bind9/etc/bind/zones.rfc1918
+      dest=/etc/bind/zones.rfc1918
+  - name: Copiar fichero de configuración /var/cache/bind/db.example.com
+    copy: >
+      src=files/bind9/var/cache/bind/db.example.com
+      dest=/var/cache/bind/db.example.com
+      owner=bind
+      group=bind
+      mode=644
+  - name: Copiar fichero de configuración /var/cache/bind/db.10.0.100
+    copy: >
+      src=files/bind9/var/cache/bind/db.10.0.100
+      dest=/var/cache/bind/db.10.0.100 
+      owner=bind
+      group=bind
+      mode=644
+    notify: Reiniciar servicio dns Bind9
+  - name: Comprobar que PostgreSQL está instalado correctamente
+    apt: name={{ item }} update_cache=true state=installed
+    with_items:
+     - postgresql
+     - postgresql-contrib
+     - libpq-dev
+     - python-psycopg2
+     - postgresql-client
+    tags: packages
+  - name: Creación de base de datos en PostgreSQL
+    become: yes
+    become_user: postgres
+    vars:
+      ansible_ssh_pipelining: true
+    postgresql_db:
+      name: drupal
+      encoding: UTF-8
+  - name: Creación de usuario en la base de datos de PostgreSQL y dar privilegios al usuario creado
+    become: yes
+    become_user: postgres
+    vars:
+      ansible_ssh_pipelining: true
+    postgresql_user:
+      db: drupal
+      name: drupaluser
+      password: drupaluser
+      priv: "ALL"
+      expires: infinity
+    notify:
+     - Reiniciar SGBD PostgreSQL
+  handlers:
+  - name: Reiniciar SGBD PostgreSQL
+    service:
+      name: postgresql
+      state: restarted
+      become: yes
+  - name: Reiniciar servicio dns Bind9
+    service:
+      name: bind9
+      state: restarted
+

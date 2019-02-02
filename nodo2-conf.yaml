@@ -1,0 +1,57 @@
+---
+- hosts: nodo2
+  become: yes
+  name: Instalar y Configurar Apache2
+  tasks:
+  - name: Actualizar lista de paquetes
+    apt: update_cache=yes
+  - name: Comprobar que Apache2 está instalado correctamente
+    apt: name=apache2 state=latest
+  - name: Comprobar que el módulo PHP7.0-FPM está instalado correctamente
+    apt:
+      name: "{{ item }}"
+    with_items:
+     - php7.0
+     - php7.0-common
+     - php7.0-readline
+     - php7.0-fpm
+     - php7.0-pgsql
+     - php7.0-xml
+     - php7.0-cli
+     - php7.0-gd
+     - php7.0-mcrypt
+     - php7.0-curl
+     - php7.0-mbstring
+     - php7.0-opcache
+     - php7.0-json
+    tags: packages
+  - name: Instalar unzip en el equipo Servidor
+    apt: name=unzip state=latest
+  - name: Descargar drupal en el equipo Servidor
+    get_url:
+      url: https://ftp.drupal.org/files/projects/drupal-8.6.7.zip
+      dest: /home/vagrant/drupal-8.6.7.zip
+  - name: Descomprimir CMS drupal
+    unarchive:
+      src: /home/vagrant/drupal-8.6.7.zip
+      dest: /var/www/html
+      remote_src: yes
+      owner: www-data
+      group: www-data
+  - name: Configurar virtualhost del sitio web de drupal
+    copy: >
+      src=files/apache2/etc/apache2/sites-available/drupal.conf
+      dest=/etc/apache2/sites-available/drupal.conf
+      owner=www-data
+      group=www-data
+      mode=0644
+  - name: Habilitar sitio web de drupal
+    command: a2ensite drupal.conf    
+    notify: 
+     - Reiniciar servicio web Apache
+  handlers:
+  - name: Reiniciar servicio web Apache
+    service: 
+      name=apache2
+      state=restarted
+
