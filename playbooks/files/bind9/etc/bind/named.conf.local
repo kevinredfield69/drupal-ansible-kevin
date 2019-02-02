@@ -6,13 +6,13 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
-zone "db.example.com"
+zone "example.com"
 {
         type master;
         file "/var/cache/bind/db.example.com";
 };
 
-zone "db.10.0.100"
+zone "100.0.10.in-addr.arpa"
 {
 	type master;
 	file "/var/cache/bind/db.10.0.100";

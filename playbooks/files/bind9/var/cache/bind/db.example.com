@@ -14,6 +14,6 @@ $TTL    5
 @	IN	NS	nodo1.example.com.
 $ORIGIN	example.com.
 
-nodo1	IN	A	10.0.100.2
-nodo2	IN	A	10.0.100.3
-drupal	IN	CNAME	nodo2
+nodo1		IN	A	10.0.100.2
+nodo2		IN	A	10.0.100.3
+drupalkevin	IN	CNAME	nodo2

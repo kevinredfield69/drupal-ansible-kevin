@@ -64,7 +64,6 @@
     service:
       name: postgresql
       state: restarted
-      become: yes
   - name: Reiniciar servicio dns Bind9
     service:
       name: bind9
