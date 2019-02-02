@@ -1,0 +1,2 @@
+- include: playbooks/nodo1-conf.yaml
+- include: playbooks/nodo2-conf.yaml
