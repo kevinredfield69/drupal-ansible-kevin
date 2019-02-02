@@ -34,15 +34,19 @@
       remote_src: yes
       owner: www-data
       group: www-data
+      mode : 0755
   - name: Configurar virtualhost del sitio web de drupal
     copy: >
       src=files/apache2/etc/apache2/sites-available/drupal.conf
       dest=/etc/apache2/sites-available/drupal.conf
-      owner=www-data
-      group=www-data
-      mode=0644
+  - name: Deshabilitar sitio web por defecto de Apache2
+    command: a2dissite 000-default.conf
   - name: Habilitar sitio web de drupal
-    command: a2ensite drupal.conf    
+    command: a2ensite drupal.conf
+  - name: Habilitar modulo fast_cgi
+    command: a2enmod proxy_fcgi
+  - name: Habilitaar configuración de PHP7.0-FPM
+    command: a2enconf php7.0-fpm    
     notify: 
      - Reiniciar servicio web Apache
   handlers:
@@ -50,4 +54,3 @@
     service: 
       name=apache2
       state=restarted
-
