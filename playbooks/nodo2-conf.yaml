@@ -60,7 +60,9 @@
   - name: Habilitar modulo fast_cgi
     command: a2enmod proxy_fcgi
   - name: Habilitar configuración de PHP7.0-FPM
-    command: a2enconf php7.0-fpm    
+    command: a2enconf php7.0-fpm
+  - name: Instalar drupal con drush    
+    command: drush site-install --db-url=pgsql://drupal:drupal@10.0.100.2:5432/drupal
     notify: 
      - Reiniciar servicio web Apache
   handlers:
