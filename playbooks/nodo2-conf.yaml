@@ -25,6 +25,16 @@
      - php7.0-xml
      - php7.0-mbstring
     tags: packages
+  - name: Descargar drush en el equipo Servidor
+    get_url:
+      url: https://github.com/drush-ops/drush/releases/download/8.1.17/drush.phar
+      dest: /home/vagrant/drush.phar
+  - name: Renombrar fichero drush descargado previamente
+    command: mv drush.phar drush
+  - name: Mover fichero drush al directorio /usr/local/bin/
+    command: mv drush /usr/local/bin/drush
+  - name: Dar permiso de ejecución al fichero drush
+    command: chmod +x /usr/local/bin/drush
   - name: Instalar unzip en el equipo Servidor
     apt: name=unzip state=latest
   - name: Descargar drupal en el equipo Servidor
@@ -49,7 +59,7 @@
     command: a2ensite drupal.conf
   - name: Habilitar modulo fast_cgi
     command: a2enmod proxy_fcgi
-  - name: Habilitaar configuración de PHP7.0-FPM
+  - name: Habilitar configuración de PHP7.0-FPM
     command: a2enconf php7.0-fpm    
     notify: 
      - Reiniciar servicio web Apache
