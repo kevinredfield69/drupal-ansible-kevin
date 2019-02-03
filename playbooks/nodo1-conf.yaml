@@ -57,6 +57,18 @@
       password: drupal
       priv: "ALL"
       expires: infinity
+  - name: Copiar fichero de configuración /etc/postgresql/9.6/main/postgresql.conf
+    copy: >
+      src=files/postgresql/etc/postgresql/9.6/main/postgresql.conf
+      dest=/etc/postgresql/9.6/main/postgresql.conf
+      owner=postgres
+      group=postgres
+  - name: Copiar fichero de configuración /etc/postgresql/9.6/main/pg_hba.conf
+    copy: >
+      src=files/postgresql/etc/postgresql/9.6/main/pg_hba.conf
+      dest=/etc/postgresql/9.6/main/pg_hba.conf
+      owner=postgres
+      group=postgres
     notify:
      - Reiniciar SGBD PostgreSQL
   handlers:

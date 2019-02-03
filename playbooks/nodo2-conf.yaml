@@ -19,7 +19,11 @@
      - libapache2-mod-php7.0
      - php7.0
      - php7.0-fpm
-     - php7.0-pgsql
+     - php-pgsql
+     - php7.0-dom
+     - php7.0-gd
+     - php7.0-xml
+     - php7.0-mbstring
     tags: packages
   - name: Instalar unzip en el equipo Servidor
     apt: name=unzip state=latest
