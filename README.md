@@ -1,7 +1,7 @@
 
 # Desplegar Drupal Mediante Ansible
 
-**Enunciado De La Práctica ASO (Ansible)**
+**+Enunciado De La Práctica ASO (Ansible)+**
 
 **Crea un escenario de forma automática utilizando la herramienta que prefieras: Vagrant, Terraform, Heat, etc. Este escenario incluirá dos máquinas, que llamaremos nodo1 y nodo2.**
 
