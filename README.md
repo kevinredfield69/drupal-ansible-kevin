@@ -3,18 +3,18 @@
 
 **Enunciado De La Práctica ASO (Ansible)**
 
-Crea un escenario de forma automática utilizando la herramienta que prefieras: Vagrant, Terraform, Heat, etc. Este escenario incluirá dos máquinas, que llamaremos nodo1 y nodo2.
+**Crea un escenario de forma automática utilizando la herramienta que prefieras: Vagrant, Terraform, Heat, etc. Este escenario incluirá dos máquinas, que llamaremos nodo1 y nodo2.**
 
-Configura apropiadamente nodo1 y nodo2 con ansible para instalar la aplicación drupal que funcione bajo drupal.example.com
+**Configura apropiadamente nodo1 y nodo2 con ansible para instalar la aplicación drupal que funcione bajo drupal.example.com**
 
-* nodo1: PostgreSQL y Bind9
-* nodo2: Apache con mod-php
+* **nodo1: PostgreSQL y Bind9**
+* **nodo2: Apache con mod-php**
 
-El cliente simplemente levantará el escenario y configurará como DNS primario el de nodo1, para acceder a un drupal totalmente configurado en drupal.example.com. IMPORTANTE: No se considerará terminada la tarea si lo que aparece es el sistema de configuración del sitio en drupal, el sitio web tiene que estar totalmente configurado y listo para usar.
+**El cliente simplemente levantará el escenario y configurará como DNS primario el de nodo1, para acceder a un drupal totalmente configurado en drupal.example.com. IMPORTANTE: No se considerará terminada la tarea si lo que aparece es el sistema de configuración del sitio en drupal, el sitio web tiene que estar totalmente configurado y listo para usar.**
 
-El resultado se tiene que proporcionar como un repositorio en github
+**El resultado se tiene que proporcionar como un repositorio en github**
 
-<--->
+
 
 El escenario a crear, consiste en la instalación y configuración de un sitio web de CMS "Drupal", mediante dos equipos o nodos, donde en cada nodo, se va a instalar los siguientes servicios a reflejarse:
 
@@ -268,4 +268,18 @@ Seguidos de los pasos anteriores, se descargará la última versión de "Drupal"
 Luego, desactivará el sitio web por defecto de "Apache" y una vez desactivado, se habilitará el sitio web de "Drupal", el módulo "proxy_fcgi" y la configuración de "php7.0-fpm", para el Servidor Web "Apache".
 
 Por último, se realizará la instalación del sitio web "Drupal", con la herramienta previamente descargada, que es la herramienta "Drush", en el equipo Servidor "nodo2", y una vez instalado el sitio web de "Drupal", se reiniciará el servicio de "apache2", para poder aplicar los cambios efectuados en el equipo Servidor "nodo2".
+
+* **DRUPAL.YAML**
+
+<pre>
+- include: playbooks/nodo1-conf.yaml
+- include: playbooks/nodo2-conf.yaml
+</pre>
+
+El fichero principal de ejecución de montaje del escenario de "Ansible", es el fichero "drupal.yaml", donde se definirán solamente, los ficheros de configuración de cada nodo, para que se ejecute de forma ordenada, como se observa en el estracto del fichero anteriormente reflejado.
+
+Explicado como el escenario está montado y como está distribuido los ficheros de configuración del escenario con "Ansible", se mostrará los pasos a seguir, para poner en funcionamiento el escenario con "Ansible".
+
+1. Ejecutar "vagrant up", para poder iniciar los dos equipos o nodos.
+2. Ejecutar "ansible-playbook drupal.yaml"
 
