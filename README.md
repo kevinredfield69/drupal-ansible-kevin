@@ -288,7 +288,7 @@ Explicado como el escenario está montado y como está distribuido los ficheros 
 1. Ejecutar "vagrant up", para poder iniciar los dos equipos o nodos.
 2. Ejecutar "ansible-playbook drupal.yaml" para poder montar el escenario con "Ansible".
 3. Configurar en el fichero "/etc/resolv.conf" del equipo anfitrión, el Servidor DNS primario del equipo Servidor "nodo1", que es el equipo Servidor con dirección IP "10.0.100.2". Para ello, escribimos en el fichero "nameserver 10.0.100.2", para poder acceder a la página o sitio web de "Drupal".
-4. Acceder a la dirección URL http://drupal.example.com , y como resultado de ello, podemos ver el sitio web de "Drupal" completamente instalado y configurado.
+4. Acceder a la dirección URL http://drupalkevin.example.com , y como resultado de ello, podemos ver el sitio web de "Drupal" completamente instalado y configurado.
 
 ¡¡¡IMPORTANTE!!!: Para poder acceder al sitio web drupal.example.com en el equipo anfitrión, utilizando el Servidor DNS del equipo Servidor "nodo1", sin necesidad de tener que escribir la dirección IP del equipo Servidor "nodo2" en el fichero "/etc/hosts" en el equipo anfitrión, lo podemos hacer de dos formas:
 
