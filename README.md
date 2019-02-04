@@ -202,7 +202,7 @@ Por último, se reiniciará los servicios de "bind9" y "postgresql", para poder 
      - php7.0-xml
      - php7.0-mbstring
     tags: packages
-  - name: Instalar cliente de PostgrSQL en el equipo Servidor
+  - name: Instalar cliente de PostgreSQL en el equipo Servidor
     apt: name=postgresql-client state=latest
   - name: Descargar drush en el equipo Servidor
     get_url:
@@ -260,4 +260,12 @@ Por último, se reiniciará los servicios de "bind9" y "postgresql", para poder 
       name=apache2
       state=restarted
 </pre>
+
+Primero, actualizará los repositorios de paquetes del sistema operativo, donde una vez actualizado dicho repositorios de paquetes, se instalarán el Servidor Web "Apache2", el módulo web "PHP7.0-FPM", el cliente del Sistema Gestor de Bases de Datos "PostgreSQL" y la herramienta "Drush", que es la herramienta encargada para la instalación del sitio web de "Drupal".
+
+Seguidos de los pasos anteriores, se descargará la última versión de "Drupal" (actualmente la versión drupal-8.6.7), y una vez descargado, descomprimirá el archivo descargado, hacia el directorio "/var/www/html". Descomprimido los ficheros del CMS "Drupal", se copiarán los ficheros de configuración del Servidor Web "Apache2", que se encuentran en el directorio "playbooks/files/apache2", hacia el equipo Servidor "nodo2".
+
+Luego, desactivará el sitio web por defecto de "Apache" y una vez desactivado, se habilitará el sitio web de "Drupal", el módulo "proxy_fcgi" y la configuración de "php7.0-fpm", para el Servidor Web "Apache".
+
+Por último, se realizará la instalación del sitio web "Drupal", con la herramienta previamente descargada, que es la herramienta "Drush", en el equipo Servidor "nodo2", y una vez instalado el sitio web de "Drupal", se reiniciará el servicio de "apache2", para poder aplicar los cambios efectuados en el equipo Servidor "nodo2".
 
