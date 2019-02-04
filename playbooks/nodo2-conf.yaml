@@ -25,6 +25,8 @@
      - php7.0-xml
      - php7.0-mbstring
     tags: packages
+  - name: Instalar cliente de PostgrSQL en el equipo Servidor
+    apt: name=postgresql-client state=latest
   - name: Descargar drush en el equipo Servidor
     get_url:
       url: https://github.com/drush-ops/drush/releases/download/8.1.17/drush.phar
@@ -61,8 +63,18 @@
     command: a2enmod proxy_fcgi
   - name: Habilitar configuración de PHP7.0-FPM
     command: a2enconf php7.0-fpm
-#  - name: Instalar drupal con drush    
-#    command: drush site-install --db-url=pgsql://drupal:drupal@10.0.100.2:5432/drupal
+  - name: Instalar drupal con drush    
+    command: > 
+      drush si standard -y
+      --site-name="Drupal de Kevin Ariza"
+      --account-name="drupal"
+      --account-pass="drupal"
+      --db-url=pgsql://drupal:drupal@10.0.100.2/drupal
+      -r /var/www/html/drupal-8.6.7 -y
+  - name: Deshabilitar agregación de CSS con drush
+    command: drush config-set system.performance css.preprocess 0 -r /var/www/html/drupal-8.6.7 -y
+  - name: Deshabilitar agregación de JS con drush
+    command: drush config-set system.performance js.preprocess 0 -r /var/www/html/drupal-8.6.7 -y
     notify: 
      - Reiniciar servicio web Apache
   handlers:

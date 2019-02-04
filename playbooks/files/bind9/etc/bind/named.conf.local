@@ -16,4 +16,4 @@ zone "100.0.10.in-addr.arpa"
 {
 	type master;
 	file "/var/cache/bind/db.10.0.100";
-}
+};
