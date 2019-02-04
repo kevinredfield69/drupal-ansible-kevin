@@ -326,3 +326,4 @@ nameserver 10.0.100.2
 
 Con ello, tenemos un escenario con un sitio web "Drupal", a través de dos equipos Servidores, donde el sitio web de "Drupal" se encuentra en un equipo Servidor, y la base de datos se encuentra en otro equipo Servidor diferente donde se encuentra instalado el sitio web de "Drupal".
 
+Si quieres acceder a "Drupal" con un nombre de usuario y contraseña, el usuario es "drupal" y la contraseña es "drupal"
